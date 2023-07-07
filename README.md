@@ -4,28 +4,28 @@
 The database typically contains a vast set of images that are unlabelled and/or disorganised, and they contain vital information including Medical Images, Medical Documents and Clinical Photographs. Some examples of such images include the following (these were also the selection of images used to train and create the program):
 
 1.	**Medical Images** 
-a.	X Rays
-b.	CT Scan Brain (Only Brain is good enough to start with as it will form the major part of CT Image universe)
-c.	MRI Spine (Only Spine is good enough to start with as it will form major part of MRI Image Universe)
-d.	Angiogram showing Blockages/Stents.
-e.	MRI Scan Reports
-f.	Angiography/Angioplasty Reports
-g.	Echocardiography Reports
-h.	Implant / Device Invoice
-i.	Implant / Device Barcode Stickers
+      1.	X Rays
+      2.	CT Scan Brain (Only Brain is good enough to start with as it will form the major part of CT Image universe)
+      3.	MRI Spine (Only Spine is good enough to start with as it will form major part of MRI Image Universe)
+      4.	Angiogram showing Blockages/Stents.
+      5.	MRI Scan Reports
+      6.	Angiography/Angioplasty Reports
+      7.	Echocardiography Reports
+      8.	Implant / Device Invoice
+      9.	Implant / Device Barcode Stickers
 
 2.	**Medical Documents (Printed, Handwritten or a combination)**
-a.	Clinical Notes
-b.	Lab Reports
-c.	X Ray Reports
-d.	Ultrasound Examination Reports
-e.	CT Scan Reports
-f.	Discharge Notes
+      1.	Clinical Notes
+      2.	Lab Reports
+      3.	X Ray Reports
+      4.	Ultrasound Examination Reports
+      5.	CT Scan Reports
+      6.	Discharge Notes
 
 3.	**Clinical Photographs**
-a.	Injury Photos
-b.	Burn Photos
-c.	Intraoperative Photographs
+      1.	Injury Photos
+      2.	Burn Photos
+      3.	Intraoperative Photographs
 
 These images/documents are important for a variety of purposes, few examples being documentation and evidence of present and historical cases and claims, and information that could be used to diagnose/re-diagnose conditions.
 
@@ -37,6 +37,7 @@ Tagging and parsing such images into the aforementioned categories is important 
 
 The model being used in this program is a simple CNN model built using Keras with a Tensorflow backend (v2.7.0) in Python 3. It contains 3 convolutional layers and 3 dense/fully connected layers with an input shape of 128x128x3 and an output shape of 3. Code used to create the model:
 
+```python
 model = tf.keras.models.Sequential()
 
 model.add(Conv2D(64, kernel_size=3, activation='relu', input_shape=(128,128, 3)))
@@ -60,6 +61,7 @@ model.add(Dense(50, activation='relu'))
 model.add(Dense(30, activation='softmax'))
 
 model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
+```
 
 This model takes an input of an RGB colour image as a NumPy array of shape (128, 128, 3) (after being normalised) and outputs a probability array [x, y, z] where x, y and z represent the probability that the image is a Medical Image, Medical Document or Clinical Photograph respectively. The highest probability will represent that class/category that the model will identify an image into.
 
@@ -99,6 +101,7 @@ In order to get the model to function, the image data must be prepped as follows
 
 Data Prep and Model Running can be performed in one easy to use function that takes in an image path and outputs the class name as text. Code is as follows:
 
+```python
 def predict_class(path_image, path_model, image_size=128):
    # Load and Resize Image
   img = cv2.cvtColor(cv2.imread(path_image, cv2.IMREAD_COLOR), cv2.COLOR_BGR2RGB)
@@ -126,9 +129,10 @@ def predict_class(path_image, path_model, image_size=128):
   plt.show()
     
   print(prediction_class)
+```
 
 ## Contact Details
 
-Mudit Dalmia
-mdalmia95+career@gmail.com
+Mudit Dalmia  
+mdalmia95+career@gmail.com  
 +91 98704 55977
